@@ -3,7 +3,7 @@ import styles from "./List.module.css";
 
 const List = () => {
     const [inputValue, setInputValue] = useState({label:"",done:false});
-    const [items, setItems] = useState([]);
+    const [items, setItems] = useState([""]);
     const [count, setCount] = useState(0);
     
     
@@ -66,7 +66,9 @@ const List = () => {
 
 
     useEffect(() => {
+        if(!createUser){
         createUser();
+        }
         getData();
     }, [])
 
@@ -74,24 +76,15 @@ const List = () => {
         postData();
     }, [items])
 
-   
-
-
-
-    
-
-
-    
-
     const addItem = async(e) => {
         if (e.key === "Enter" && inputValue.trim() !== "") {
             setItems([...items, { label: inputValue, done: true }]);
-            setInputValue("");
+            setInputValue({label:"",done:false});
+          }if ((e.key === "Enter" && inputValue.trim() == "")||(e.type === "click" && inputValue.label == "")) {
+            alert("tonto")
           }
 }
         
-  
-  
     useEffect(() => {
         setCount(items.length);
 }, [items]);
@@ -100,6 +93,14 @@ const List = () => {
 
     const deleteValue = async(index) => {
         setItems((prevItems) => prevItems.filter((_, i) => i !== index));
+        if (items.length == 0){
+            handleRemoveLastItem()
+        }
+      };
+
+      const handleRemoveLastItem = async() => {
+        const newArray = myArray.slice(0, -1); // Crea una nueva instancia del array sin el último elemento
+        setItems(newArray); // Actualiza el estado con el nuevo array
       };
       
 
