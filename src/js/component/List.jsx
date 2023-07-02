@@ -81,7 +81,7 @@ const List = () => {
             setItems([...items, { label: inputValue, done: true }]);
             setInputValue({label:"",done:false});
           }if ((e.key === "Enter" && inputValue.trim() == "")||(e.type === "click" && inputValue.label == "")) {
-            alert("tonto")
+            alert("insert a valid value")
           }
 }
         
